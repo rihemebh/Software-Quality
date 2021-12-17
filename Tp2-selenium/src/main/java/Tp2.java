@@ -8,13 +8,22 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Tp2 {
-public static WebDriver driver = null;
+    public static WebDriver driver = null;
+    public void checkout(){
 
-        public void search(String key){
-        System.out.println(driver.findElements(By.cssSelector(".search_query")));
+    }
+public void order(){
+   driver.findElement(By.cssSelector(".product-title a")).click();
+    driver.findElement(By.cssSelector(".add-to-cart")).click();
+    driver.findElement(By.linkText("Commander")).click();
+}
+    public void search(String key) throws InterruptedException {
+
         driver.findElement(By.cssSelector(".search_query")).sendKeys(key);
-        driver.findElement(By.id("sp-btn-search")).click();
-        }
+        Thread.sleep(2000);
+        driver.findElement(By.cssSelector(".button-search")).click();
+    }
+
     private void login(String email, String password) {
         try {
 
@@ -34,26 +43,27 @@ public static WebDriver driver = null;
 
             WebElement submit = driver.findElement(By.id("submit-login"));
             submit.click();
-        }
-        catch(InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-void setup(){
-    WebDriverManager.chromedriver().setup();
-    driver = new ChromeDriver();
-    driver.manage().window().fullscreen();
-    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS) ;
-}
-        public static void main (String args[]) throws Exception {
-                Tp2 tp2 = new Tp2();
-                tp2.setup();
-                driver.get("https://www.tunisianet.com.tn/");
-                driver.manage().window().maximize();
-                //tp2.login("rihemebnhassan@gmail.com", "riheme123");
-                tp2.search("MacBook M1 13.3");
 
-        }
+    void setup() {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().fullscreen();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
+
+    public static void main(String args[]) throws Exception {
+        Tp2 tp2 = new Tp2();
+        tp2.setup();
+        driver.get("https://www.tunisianet.com.tn/");
+        //tp2.login("rihemebnhassan@gmail.com", "riheme123");
+        tp2.search("MacBook M1 13.3");
+        tp2.order();
+
+    }
+}
 
 
