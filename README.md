@@ -91,3 +91,4 @@ Parallele execution means running multiple test at one
 
 
 # JUnit 
+JUnit is an open source framework for the development and execution of automatable unit tests. The main interest is to ensure that the code still meets the needs even after possible modifications. More generally, this type of tests is called unit non-regression tests.
