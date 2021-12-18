@@ -10,10 +10,11 @@ import java.util.concurrent.TimeUnit;
 public class Tp2 {
     public static WebDriver driver = null;
     public void checkout(){
-
+        driver.findElement(By.id("cart")).click();
     }
+
 public void order(){
-   driver.findElement(By.cssSelector(".product-title a")).click();
+    driver.findElement(By.cssSelector(".product-title a")).click();
     driver.findElement(By.cssSelector(".add-to-cart")).click();
     driver.findElement(By.linkText("Commander")).click();
 }
@@ -59,7 +60,7 @@ public void order(){
         Tp2 tp2 = new Tp2();
         tp2.setup();
         driver.get("https://www.tunisianet.com.tn/");
-        //tp2.login("rihemebnhassan@gmail.com", "riheme123");
+        tp2.login("rihemebnhassan@gmail.com", "riheme123");
         tp2.search("MacBook M1 13.3");
         tp2.order();
 
