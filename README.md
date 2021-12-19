@@ -9,6 +9,16 @@
 # Clean code 
 
 ## SOLID
+### "S" stands for Single Responsibility Principle
+SRP : A class should have one reason to change
+### "O" stands for Open for extension, closed for modification
+### "L" Stands for Liskov Substitution Principle
+LSP : enable to replace objects of a parent class with objects of subclass without breaking the application
+### "I" stands for Interface Segregation Principle
+ISP  : Splitting methods of a contract into groups of responsability and assigning interface to these groups.
+### "D" stands Dependency Inverison Principle
+DIP: isolate the class from concrete implementation and having them depend on an abstract classes or interfaces.
+
 
 
 # Selenium
