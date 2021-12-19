@@ -110,11 +110,11 @@ JUnit is an open source framework for the development and execution of automatab
 |---|---|---|
 |``@BeforeClass``|Run only once and specifically before anything else is run in the test class|initializes Selenium Webdriver and opens a browser|
 |``@AfterClass``|It is the annotation used to execute tasks after all the tests have been completed|close the browser and free that resource once all tests within the JUnit Selenium test class have been executed|
-|``@Before``|run code before each test|When writing a Selenium test class, there might be a mandatory step that starts the test from a specific web page. In that case, one can use the @Before annotation so that the required webpage is opened and ready before any test is run.|
-|``@After``|is used to run tasks after the execution of each test. After every test, the test results might have to be sent to a logging service or a monitoring service.||
+|``@BeforeEach``|run code before each test|When writing a Selenium test class, there might be a mandatory step that starts the test from a specific web page. In that case, one can use the @Before annotation so that the required webpage is opened and ready before any test is run.|
+|``@AfterEach``|is used to run tasks after the execution of each test. After every test, the test results might have to be sent to a logging service or a monitoring service.||
 |``@Test``|identify the actual test case||
 |``@RepeatedTest``|run a given test any number of times|A web application is built to ensure caching does not occur due to highly dynamic data. So, each time the webpage is loaded, the cache must be empty. To automate the testing of this scenario, one has to run the same sequence multiple times.|
-
+|``@ParameterizedTest``|Parameterized test is to execute the same test over and over again using different values.||
 Example :
 ```java
 // tells Selenium to set the timeout to 5 seconds
@@ -126,5 +126,9 @@ public void test()
 // selenium test
 }
 ```
+
+### Order of execution: 
+
+<img src="https://github.com/rihemebh/Software-Quality/blob/main/order%20of%20execution.PNG"  />
 
 
