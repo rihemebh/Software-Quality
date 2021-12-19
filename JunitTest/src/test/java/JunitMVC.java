@@ -9,11 +9,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class JunitMVC {
     /**
@@ -35,52 +34,42 @@ public class JunitMVC {
 
     @BeforeAll
     public static void setup() {
-        // setup the driver
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         javaScriptExecutor = (JavascriptExecutor) driver;
         driverWait = new WebDriverWait(driver, 3);
-
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        System.out.println("executing : before all ");
+        System.out.println("executing : setup");
     }
-
-    @BeforeEach
-    public void func() {
-
-        System.out.println("executing : before each");
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {
-            "Backbone.js",
-            "React",
-            "AngularJS",
-            "Polymer",
-            "Dojo"
-    })
 
     @BeforeEach
     public void getUrl() {
         driver.get("https://www.todomvc.com");
     }
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "Backbone.js",
+//            "React",
+//            "AngularJS",
+//            "Polymer",
+//            "Dojo"
+    })
     public  void testTodoMVC(String technology){
-        // visit the website
-        WebElement backboneJSLink = driver.findElement(By.linkText(technology));
-        driverWait.until(ExpectedConditions.visibilityOf(backboneJSLink));
-        backboneJSLink.click();
+        WebElement link = driver.findElement(By.linkText(technology));
+        driverWait.until(ExpectedConditions.visibilityOf(link));
+        link.click();
 
-        WebElement todoInput = driver.findElement(By.className("new-todo"));
-        driverWait.until(ExpectedConditions.visibilityOf(todoInput));
-        todoInput.sendKeys("Meet a Friend");
-        todoInput.sendKeys(Keys.ENTER);
+        WebElement inputTODO = driver.findElement(By.className("new-todo"));
+        driverWait.until(ExpectedConditions.visibilityOf(inputTODO));
+        inputTODO.sendKeys("Meet a Friend");
+        inputTODO.sendKeys(Keys.ENTER);
 
-        todoInput.sendKeys("Buy Meat");
-        todoInput.sendKeys(Keys.ENTER);
+        inputTODO.sendKeys("Buy Meat");
+        inputTODO.sendKeys(Keys.ENTER);
 
-        todoInput.sendKeys("Clean the car");
-        todoInput.sendKeys(Keys.ENTER);
+        inputTODO.sendKeys("Clean the car");
+        inputTODO.sendKeys(Keys.ENTER);
 
         WebElement todoCount = driver.findElement(By.cssSelector(".todo-count > strong"));
         driverWait.until(ExpectedConditions.textToBePresentInElement(todoCount, "3"));
