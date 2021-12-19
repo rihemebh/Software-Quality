@@ -9,14 +9,14 @@ import java.util.concurrent.TimeUnit;
 
 public class Tp2 {
     public static WebDriver driver = null;
-    private static JavascriptExecutor javaScriptExecutor;
+
     void setup() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().fullscreen();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-        javaScriptExecutor = (JavascriptExecutor) driver;
+
     }
     private void login(String email, String password) {
         try {
@@ -48,44 +48,22 @@ public class Tp2 {
     public void checkout() throws InterruptedException, IOException {
 
         driver.findElement(By.cssSelector("a.btn-primary")).click();
-        Thread.sleep(5000);
+
         //fill out address input
-        WebElement addressInput = driver.findElement(By.cssSelector("input[name='address1']"));
-//
-        addressInput.sendKeys("manouba");
-//
-//        //fill out postcode input
-        WebElement postcodeInput = driver.findElement(By.cssSelector("input[name='postcode']"));
-        postcodeInput.sendKeys("2010");
-//
-//        //fill out city input
-        WebElement cityInput = driver.findElement(By.cssSelector("input[name='city']"));
-       cityInput.sendKeys("manouba");
-//
-//        //fill out phone input
-      WebElement phoneInput = driver.findElement(By.cssSelector("input[name='phone']"));
-      phoneInput.sendKeys("45686935");
-//
-//        //click on confirm button
-       WebElement confirmButton = driver.findElement(By.cssSelector("button[name='confirm-addresses']"));
-        confirmButton.click();
+        driver.findElement(By.cssSelector("input[name='address1']")).sendKeys("manouba");
+
+        //fill out postcode input
+        driver.findElement(By.cssSelector("input[name='postcode']")).sendKeys("2010");
+
+       //fill out city input
+        driver.findElement(By.cssSelector("input[name='city']")).sendKeys("manouba");
+       //fill out phone input
+       driver.findElement(By.cssSelector("input[name='phone']")).sendKeys("45686935");
+       //click on confirm button
+        driver.findElement(By.cssSelector("button[name='confirm-addresses']")).click();
+        driver.findElement(By.cssSelector("button[name='confirmDeliveryOption']")).click();
         driver.findElement(By.id("payment-option-1")).click();
         driver.findElement(By.id("conditions_to_approve[terms-and-conditions]")).click();
-
-//        //click on confirm button
-        confirmButton = driver.findElement(By.cssSelector("button[name='confirmDeliveryOption']"));
-       confirmButton.click();
-//
-//        File screenshotFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-//        File dest = new File("./src/test/img/scrrenshot.png");
-//        FileUtils.copyFile(screenshotFile, dest);
-//
-//        //click on the user icon
-//        WebElement userIcon = driver.findElement(By.className("user-info"));
-//
-//
-//        javaScriptExecutor.executeScript("arguments[0].click()", userIcon);
-
     }
 
     public static void main(String args[]) throws Exception {
@@ -96,6 +74,7 @@ public class Tp2 {
         tp2.search("MacBook M1 13.3");
         tp2.order();
         tp2.checkout();
+        driver.quit();
 
     }
 }
