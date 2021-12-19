@@ -1,4 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,9 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.File;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -33,27 +37,29 @@ public class JunitMVC {
     private static WebDriverWait driverWait;
 
     @BeforeAll
-    public static void setup() {
+    public static void init(){
         WebDriverManager.chromedriver().setup();
+    }
+    @BeforeEach
+    public  void setup() {
+
         driver = new ChromeDriver();
         javaScriptExecutor = (JavascriptExecutor) driver;
         driverWait = new WebDriverWait(driver, 3);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+        driver.manage().timeouts().setScriptTimeout(Duration.ofMinutes(3));
         System.out.println("executing : setup");
-    }
-
-    @BeforeEach
-    public void getUrl() {
         driver.get("https://www.todomvc.com");
     }
+
     @ParameterizedTest
     @ValueSource(strings = {
             "Backbone.js",
-//            "React",
-//            "AngularJS",
-//            "Polymer",
-//            "Dojo"
+            "React",
+            "AngularJS",
+            "Polymer",
+            "Dojo"
     })
     public  void testTodoMVC(String technology){
         WebElement link = driver.findElement(By.linkText(technology));
@@ -81,7 +87,6 @@ public class JunitMVC {
         todoCount = driver.findElement(By.cssSelector(".todo-count > strong"));
         driverWait.until(ExpectedConditions.textToBePresentInElement(todoCount, "1"));
     }
-
 
     @AfterEach
     public void cleanup() {
