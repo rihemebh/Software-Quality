@@ -3,11 +3,22 @@
    - [SOLID](#solid)
 - [Selenium](#selenium)
 - [JUnit](#junit)
+   - [Annotations](#annotations)
 
 
 # Clean code 
 
 ## SOLID
+### "S" stands for Single Responsibility Principle
+SRP : A class should have one reason to change
+### "O" stands for Open for extension, closed for modification
+### "L" Stands for Liskov Substitution Principle
+LSP : enable to replace objects of a parent class with objects of subclass without breaking the application
+### "I" stands for Interface Segregation Principle
+ISP  : Splitting methods of a contract into groups of responsability and assigning interface to these groups.
+### "D" stands Dependency Inverison Principle
+DIP: isolate the class from concrete implementation and having them depend on an abstract classes or interfaces.
+
 
 
 # Selenium
@@ -91,3 +102,29 @@ Parallele execution means running multiple test at one
 
 
 # JUnit 
+JUnit is an open source framework for the development and execution of automatable unit tests. The main interest is to ensure that the code still meets the needs even after possible modifications. More generally, this type of tests is called unit non-regression tests.
+
+## Annotations 
+
+|Annotation|Meaning |Usecase|
+|---|---|---|
+|``@BeforeClass``|Run only once and specifically before anything else is run in the test class|initializes Selenium Webdriver and opens a browser|
+|``@AfterClass``|It is the annotation used to execute tasks after all the tests have been completed|close the browser and free that resource once all tests within the JUnit Selenium test class have been executed|
+|``@Before``|run code before each test|When writing a Selenium test class, there might be a mandatory step that starts the test from a specific web page. In that case, one can use the @Before annotation so that the required webpage is opened and ready before any test is run.|
+|``@After``|is used to run tasks after the execution of each test. After every test, the test results might have to be sent to a logging service or a monitoring service.||
+|``@Test``|identify the actual test case||
+|``@RepeatedTest``|run a given test any number of times|A web application is built to ensure caching does not occur due to highly dynamic data. So, each time the webpage is loaded, the cache must be empty. To automate the testing of this scenario, one has to run the same sequence multiple times.|
+
+Example :
+```java
+// tells Selenium to set the timeout to 5 seconds
+@Test(timeout=5000)
+//@RepeatedTest takes in an integer which tells JUnit to run the test called “test” 6 times.
+@RepeatedTest(6)
+public void test()
+{ 
+// selenium test
+}
+```
+
+
